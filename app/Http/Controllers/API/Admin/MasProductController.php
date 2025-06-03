@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Admin;
 
+use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
 use App\Models\MasProduct;
 use Exception;
@@ -21,7 +22,7 @@ class MasProductController extends BaseController
                 'product_name' => 'required|string|max:255',
                 'price' => 'required|numeric|min:0',
                 'description' => 'nullable|string',
-                'product_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation สำหรับไฟล์รูปภาพ
+                'product_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validation สำหรับไฟล์รูปภาพ
             ]
         );
 
@@ -44,14 +45,15 @@ class MasProductController extends BaseController
             $relativePath = null;
 
             if ($request->hasFile('product_image') && $request->file('product_image')->isValid()) {
-                // การ store ไฟล์ อาจจะมีการ throw Exception ได้
-                $relativePath = $request->file('product_image')->store('products', 'public');
-                if (!$relativePath) {
-                    // ถ้า store() คืนค่าเป็น false หรือ null (บางกรณีอาจเกิด)
-                    DB::rollBack(); // Rollback ถ้าใช้ Transaction
-                    return $this->sendError('Could not save product image.', [], 500);
+                $filename = time() . '_' . Str::random(10);
+                $destination = public_path('');
+
+                if (!file_exists($destination)) {
+                    mkdir($destination, 0755, true);
                 }
-                $preparedInput['image_url'] = $relativePath;
+
+                $request->file('product_image')->move($destination, $filename);
+                $preparedInput['image_url'] = '/' . $filename; // เก็บ relative path
             } else {
                 $preparedInput['image_url'] = null;
             }
@@ -59,8 +61,8 @@ class MasProductController extends BaseController
             // return $this->sendResponse($preparedInput, 'Product created successfully.', 201);
             $product = MasProduct::create($preparedInput);
 
-            // DB::commit(); // Commit Transaction ถ้าทุกอย่างสำเร็จ (ถ้าใช้ Transaction)
-            DB::rollBack();
+            DB::commit(); // Commit Transaction ถ้าทุกอย่างสำเร็จ (ถ้าใช้ Transaction)
+            // DB::rollBack();
 
             // 3. ส่ง Response กลับ
             // ถ้าคุณใช้ API Resource ให้ใช้ new MasProductResource($product->fresh())

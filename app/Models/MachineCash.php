@@ -29,8 +29,6 @@ class MachineCash extends BaseUuidModel
     public $incrementing = false;
 
     protected $casts = [
-        'vending_machine_id' => 'uuid',
-        'mas_cash_id' => 'uuid',
         'quantity' => 'int'
     ];
 

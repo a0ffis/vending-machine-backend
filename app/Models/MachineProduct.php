@@ -33,8 +33,6 @@ class MachineProduct extends BaseUuidModel
     public $incrementing = false;
 
     protected $casts = [
-        'vending_machine_id' => 'uuid',
-        'mas_products_id' => 'uuid',
         'current_price' => 'float',
         'quantity_in_stock' => 'int'
     ];
