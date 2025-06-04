@@ -1,5 +1,6 @@
 ## env
 
+```bash
 APP_NAME=Laravel
 APP_ENV=local
 APP_KEY=base64:rCjfE8ib7DHFqyF6j2sLG6JIZlPpvCS7LX602VSZNaI=
@@ -66,6 +67,7 @@ AWS_BUCKET=
 AWS_USE_PATH_STYLE_ENDPOINT=false
 
 VITE_APP_NAME="${APP_NAME}"
+```
 
 ## run
 
