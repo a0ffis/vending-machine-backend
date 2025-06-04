@@ -69,6 +69,9 @@ AWS_USE_PATH_STYLE_ENDPOINT=false
 VITE_APP_NAME="${APP_NAME}"
 ```
 
-## run
+## Running Migrations
 
-php artisan migrate --seed
+```bash
+DB_HOST=localhost php artisan migrate --seed
+```
+
