@@ -40,9 +40,6 @@ class MachineTransaction extends BaseUuidModel
     public $incrementing = false;
 
     protected $casts = [
-        'vending_machine_id' => 'uuid',
-        'machine_product_id' => 'uuid',
-        'user_id' => 'uuid',
         'quantity_purchased' => 'int',
         'price_per_unit_at_transaction' => 'float',
         'total_amount_due' => 'float',

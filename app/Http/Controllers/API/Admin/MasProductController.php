@@ -45,7 +45,7 @@ class MasProductController extends BaseController
             $relativePath = null;
 
             if ($request->hasFile('product_image') && $request->file('product_image')->isValid()) {
-                $filename = time() . '_' . Str::random(10);
+                $filename = time() . '_' . Str::random(10) . '.' . $request->file('product_image')->getClientOriginalExtension();
                 $destination = public_path('');
 
                 if (!file_exists($destination)) {

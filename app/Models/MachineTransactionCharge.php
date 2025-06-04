@@ -29,8 +29,6 @@ class MachineTransactionCharge extends BaseUuidModel
     public $incrementing = false;
 
     protected $casts = [
-        'machine_transaction_id' => 'uuid',
-        'mas_cash_id' => 'uuid',
         'quantity' => 'int'
     ];
 

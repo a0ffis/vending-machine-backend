@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Admin\MachineCashController;
+use App\Http\Controllers\API\Admin\MasCashController;
 use App\Http\Controllers\API\Admin\MasProductController;
 use App\Http\Controllers\API\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\API\Admin\VendingMachineController;
@@ -19,6 +20,7 @@ Route::get(
 
 // Admin Routes
 Route::post('/admin/master/products', [MasProductController::class, 'storeProduct']);
+Route::get('/admin/master/cash', [MasCashController::class, 'index']);
 Route::post('/admin/create-vending-machine', [VendingMachineController::class, 'createVendingMachine']);
 Route::post('/admin/add-product-vending-machine', [AdminProductController::class, 'addProduct'])->middleware(EnsureMachineIdIsValid::class);
 Route::post('/admin/update-cash-vending-machine', [MachineCashController::class, 'updateCashInVendingMachine'])

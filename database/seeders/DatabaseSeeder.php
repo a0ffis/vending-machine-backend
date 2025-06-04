@@ -24,7 +24,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(
             [
-                MasCashSeeder::class
+                MasCashSeeder::class,
+                VendingMachineSeeder::class,
+                MasProductsSeeder::class,
+                MachineProductsSeeder::class,
+                MachineCashSeeder::class,
             ]
         );
     }

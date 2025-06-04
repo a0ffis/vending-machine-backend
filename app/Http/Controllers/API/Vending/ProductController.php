@@ -45,7 +45,7 @@ class ProductController extends BaseController
                 // ตรวจสอบว่า mas_product มี image_url และไม่เป็นค่าว่าง
                 if (!empty($masProduct->image_url)) {
                     // $imageUrl = Storage::url($masProduct->image_url);
-                    $imageUrl = asset('storage/' . $masProduct->image_url); // ใช้ asset() เพื่อสร้าง URL ที่ถูกต้อง
+                    $imageUrl = asset('' . $masProduct->image_url); // ใช้ asset() เพื่อสร้าง URL ที่ถูกต้อง
                 }
 
                 return [
@@ -57,7 +57,6 @@ class ProductController extends BaseController
                     'quantity_in_stock' => $machineProduct->quantity_in_stock,
                     'slot_number' => $machineProduct->slot_number,
                 ];
-
             }
         )->filter();
 

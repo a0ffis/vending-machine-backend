@@ -19,7 +19,7 @@ class ProductController extends BaseController
      *
      * @param \Illuminate\Http\Request $request The request containing the product details
      * @param string $request->mas_products_id The ID of the product from the master products table
-     * @param int $request->quantity The quantity of the product to be added
+     * @param int $request->quantity_in_stock The quantity_in_stock of the product to be added
      * @param float $request->current_price The current price of the product
      * @param string $request->slot_number The slot number where the product will be added
      *
@@ -33,7 +33,7 @@ class ProductController extends BaseController
             $request->all(),
             [
                 'mas_products_id' => 'required|exists:mas_products,id',
-                'quantity' => 'required|integer|min:1',
+                'quantity_in_stock' => 'required|integer|min:1',
                 'current_price' => 'required|numeric|min:0',
                 'slot_number' => 'required|string|max:255',
             ]
@@ -56,7 +56,7 @@ class ProductController extends BaseController
             );
         }
 
-        $input = $request->only(['mas_products_id', 'quantity', 'current_price', 'slot_number']);
+        $input = $request->only(['mas_products_id', 'quantity_in_stock', 'current_price', 'slot_number']);
         $input['vending_machine_id'] = $machineId;
 
         DB::beginTransaction();
